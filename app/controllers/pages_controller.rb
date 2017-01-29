@@ -10,6 +10,10 @@ class PagesController < ApplicationController
   # GET /pages/1
   # GET /pages/1.json
   def show
+    if params[:parent_title].present?
+      parent = Page.find_by_title params[:parent_title]
+      @page = parent.subpages.find_by_title params[:title] if parent.present?
+    end
   end
 
   # GET /pages/new
